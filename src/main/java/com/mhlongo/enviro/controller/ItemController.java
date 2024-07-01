@@ -8,23 +8,24 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.mhlongo.enviro.model.Category;
+import com.mhlongo.enviro.model.Item;
+
 
 @RestController
-public class CategoryController {
+public class ItemController {
     @Autowired
     protected Environment environment = null;
-    private static final Logger log = LoggerFactory.getLogger(CategoryController.class);
+    private static final Logger log = LoggerFactory.getLogger(ItemController.class);
     
-    @GetMapping("category")
+    @GetMapping("item")
     public void logCategory(Long id){
-         log.info("Category Endpoint");
+         log.info("Item Endpoint");
     }
 
-    @GetMapping("category/{id}")
-    public Category getCategoryName(@PathVariable Long id){
-        log.info("Category ID: "+Long.toString(id));
-        return new Category(id, null, null, false);
+    @GetMapping("item/{id}")
+    public Item getCategoryName(@PathVariable Long id){
+        log.info("Item ID: "+Long.toString(id));
+        return new Item(id, null, null, 0, null);
     }
 
 

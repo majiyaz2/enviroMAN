@@ -1,4 +1,4 @@
-package com.mhlongo.enviro.models;
+package com.mhlongo.enviro.model;
 
 public class Category {
 

@@ -8,23 +8,24 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.mhlongo.enviro.model.Category;
+import com.mhlongo.enviro.model.Tip;
+
 
 @RestController
-public class CategoryController {
+public class TipController {
     @Autowired
     protected Environment environment = null;
-    private static final Logger log = LoggerFactory.getLogger(CategoryController.class);
+    private static final Logger log = LoggerFactory.getLogger(TipController.class);
     
-    @GetMapping("category")
+    @GetMapping("tip")
     public void logCategory(Long id){
-         log.info("Category Endpoint");
+         log.info("Tip Endpoint");
     }
 
-    @GetMapping("category/{id}")
-    public Category getCategoryName(@PathVariable Long id){
-        log.info("Category ID: "+Long.toString(id));
-        return new Category(id, null, null, false);
+    @GetMapping("tip/{id}")
+    public Tip getCategoryName(@PathVariable Long id){
+        log.info("Catagory ID: "+Long.toString(id));
+        return new Tip(id, null, null, null);
     }
 
 

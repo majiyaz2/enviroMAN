@@ -5,11 +5,12 @@ import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.mhlongo.enviro.models.Category;
-import com.mhlongo.enviro.models.Item;
+import com.mhlongo.enviro.model.Item;
 
-public class ItemControllerTest {
-    private static final Logger log = LoggerFactory.getLogger(CategoryControllerTest.class);
+
+
+public class ItemModelTest {
+    private static final Logger log = LoggerFactory.getLogger(ItemModelTest.class);
     
     private Item getTestItem(){
         return new Item(TestItem.ID, TestItem.NAME, TestItem.DESCRIPTION, TestItem.WEIGHT, TestItem.DISPOSAL);

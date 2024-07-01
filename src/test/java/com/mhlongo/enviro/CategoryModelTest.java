@@ -5,10 +5,10 @@ import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.mhlongo.enviro.models.Category;
+import com.mhlongo.enviro.model.Category;
 
-public class CategoryControllerTest {
-    private static final Logger log = LoggerFactory.getLogger(ItemControllerTest.class);
+public class CategoryModelTest {
+    private static final Logger log = LoggerFactory.getLogger(ItemModelTest.class);
     private Category getTestCategory(){
         return new Category(TestCategory.ID, TestCategory.Name, TestCategory.DESCRIPTION, TestCategory.ISRECYCLABLE);
 
