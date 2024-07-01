@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.mhlongo.enviro.Category;
+import com.mhlongo.enviro.models.Category;
 
 @RestController
 public class CategoryController {
@@ -23,7 +23,7 @@ public class CategoryController {
 
     @GetMapping("category/{id}")
     public Category getCategoryName(@PathVariable Long id){
-        log.info(Long.toString(id));
+        log.info("Catagory ID: "+Long.toString(id));
         return new Category(id, null, null, false);
     }
 

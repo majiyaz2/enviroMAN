@@ -5,6 +5,8 @@ import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.mhlongo.enviro.models.Category;
+
 public class WasteControllerTest {
     private static final Logger log = LoggerFactory.getLogger(WasteControllerTest.class);
     private Category getTestCategory(){
