@@ -7,8 +7,8 @@ import org.slf4j.LoggerFactory;
 
 import com.mhlongo.enviro.models.Category;
 
-public class WasteControllerTest {
-    private static final Logger log = LoggerFactory.getLogger(WasteControllerTest.class);
+public class CategoryControllerTest {
+    private static final Logger log = LoggerFactory.getLogger(ItemControllerTest.class);
     private Category getTestCategory(){
         return new Category(TestCategory.ID, TestCategory.Name, TestCategory.DESCRIPTION, TestCategory.ISRECYCLABLE);
 
