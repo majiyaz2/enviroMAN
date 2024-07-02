@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.mhlongo.enviro.model.Tip;
+import com.mhlongo.enviro.model.TipModel;
 
 
 @RestController
@@ -25,13 +25,13 @@ public class TipController {
     }
 
     @GetMapping("tip/{id}")
-    public Tip getCategoryName(@PathVariable Long id){
+    public TipModel getCategoryName(@PathVariable Long id){
         log.info("Tip ID: "+Long.toString(id));
-        return new Tip(id, null, null, null);
+        return new TipModel(id, null, null, null);
     }
     
     @PostMapping("tip/addTip")
-    public Tip addTip(Tip tip){
+    public TipModel addTip(TipModel tip){
         return tip;
     }
     

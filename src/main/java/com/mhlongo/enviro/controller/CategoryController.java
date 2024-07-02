@@ -10,7 +10,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.mhlongo.enviro.model.Category;
+import com.mhlongo.enviro.model.CategoryModel;
+import com.mhlongo.enviro.repositories.CategoryRepository;
 
 @RestController
 public class CategoryController {
@@ -18,19 +19,22 @@ public class CategoryController {
     protected Environment environment = null;
     private static final Logger log = LoggerFactory.getLogger(CategoryController.class);
     
+    @Autowired
+    private CategoryRepository categoryRepository;
+    
     @GetMapping("category")
     public void logCategory(Long id){
          log.info("Category Endpoint");
     }
 
     @GetMapping("category/{id}")
-    public Category getCategoryName(@PathVariable Long id){
+    public CategoryModel getCategoryName(@PathVariable Long id){
         log.info("Category ID: "+Long.toString(id));
-        return new Category(id, null, null, false);
+        return new CategoryModel(id, null, null, false);
     }
     
     @PostMapping("category/addCategory")
-    public Category addCategoy(Category category){
+    public CategoryModel addCategoy(CategoryModel category){
         return category;
     }
     

@@ -1,21 +1,27 @@
 package com.mhlongo.enviro.model;
 
-public class Category {
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
-    private Long ID;
+@Entity
+@Table(name = "CATEGORY")
+public class CategoryModel {
+    @Id
+    private Long id;
     private String name;
     private String description;
     private boolean isRecyclable;
 
-    public Category(Long ID, String name, String description, boolean isRecyclable) {
-        this.ID = ID;
+    public CategoryModel(Long id, String name, String description, boolean isRecyclable) {
+        this.id = id;
         this.name = name;
         this.description = description;
         this.isRecyclable = isRecyclable;
     }
 
     public Long getID() {
-        return ID;
+        return id;
     }
 
     public String getName() {

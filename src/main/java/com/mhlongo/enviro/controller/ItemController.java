@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.mhlongo.enviro.model.Item;
+import com.mhlongo.enviro.model.ItemModel;
 
 
 @RestController
@@ -25,13 +25,13 @@ public class ItemController {
     }
 
     @GetMapping("item/{id}")
-    public Item getCategoryName(@PathVariable Long id){
+    public ItemModel getCategoryName(@PathVariable Long id){
         log.info("Item ID: "+Long.toString(id));
-        return new Item(id, null, null, 0, null);
+        return new ItemModel(id, null, null, 0, null);
     }
 
     @PostMapping("item/addItem")
-    public Item addItem(Item item){
+    public ItemModel addItem(ItemModel item){
         return item;
     }
 

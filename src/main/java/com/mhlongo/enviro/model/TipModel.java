@@ -1,13 +1,21 @@
 package com.mhlongo.enviro.model;
 
-public class Tip {
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 
+@Entity
+@Table(name = "TIP")
+public class TipModel {
+    @Id
     private Long ID;
     private String title;
-    private Category category;
+    @ManyToOne
+    private CategoryModel category;
     private String content; 
 
-    public Tip(Long ID, String title, Category category, String content) {
+    public TipModel(Long ID, String title, CategoryModel category, String content) {
         this.ID = ID;
         this.title = title;
         this.category = category;
@@ -22,7 +30,7 @@ public class Tip {
         return title;
     }
 
-    public Category getCategory() {
+    public CategoryModel getCategory() {
         return category;
     }
 
