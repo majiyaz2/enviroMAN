@@ -4,8 +4,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.mhlongo.enviro.model.Category;
@@ -26,6 +28,16 @@ public class CategoryController {
         log.info("Category ID: "+Long.toString(id));
         return new Category(id, null, null, false);
     }
-
-
+    
+    @PostMapping("category/addCategory")
+    public Category addCategoy(Category category){
+        return category;
+    }
+    
+    @DeleteMapping("category/{id}")
+    public void deleteCategoryName(@PathVariable Long id){
+        log.info("Delete ID: "+Long.toString(id));
+    }
+    
+    
 }
