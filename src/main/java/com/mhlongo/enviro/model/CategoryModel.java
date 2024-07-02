@@ -1,6 +1,8 @@
 package com.mhlongo.enviro.model;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
@@ -8,10 +10,13 @@ import jakarta.persistence.Table;
 @Table(name = "CATEGORY")
 public class CategoryModel {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
     private String description;
     private boolean isRecyclable;
+
+    public CategoryModel(){}
 
     public CategoryModel(Long id, String name, String description, boolean isRecyclable) {
         this.id = id;
