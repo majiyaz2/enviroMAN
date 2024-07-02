@@ -24,13 +24,13 @@ public class ItemModelTest {
     public void testItem(){
         ItemModel item = null;
 
-        log.info("Testing Category class");
+        log.info("Testing Item class");
         item = getTestItem();
         Assertions.assertThat(TestItem.ID).isEqualTo(item.getID());
         Assertions.assertThat(TestItem.NAME).isEqualTo(item.getName());
         Assertions.assertThat(TestItem.DESCRIPTION).isEqualTo(item.getDescription());
         Assertions.assertThat(TestItem.WEIGHT).isEqualTo(item.getWeight());
         Assertions.assertThat(TestItem.DISPOSAL).isEqualTo(item.getDisposal());
-        log.info("Done Testing Category class");
+        log.info("Done Testing Item class");
     }
 }

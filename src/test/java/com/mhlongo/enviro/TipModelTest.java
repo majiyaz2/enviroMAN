@@ -23,12 +23,12 @@ public class TipModelTest {
     public void testItem(){
         TipModel tip = null;
 
-        log.info("Testing Category class");
+        log.info("Testing Tip class");
         tip = getTestTip();
         Assertions.assertThat(TestTip.ID).isEqualTo(tip.getID());
         Assertions.assertThat(TestTip.TITLE).isEqualTo(tip.getTitle());
         Assertions.assertThat(TestTip.CATEGORY).isEqualTo(tip.getCategory());
         Assertions.assertThat(TestTip.CONTENT).isEqualTo(tip.getContent());
-        log.info("Done Testing Category class");
+        log.info("Done Testing Tip class");
     }
 }
