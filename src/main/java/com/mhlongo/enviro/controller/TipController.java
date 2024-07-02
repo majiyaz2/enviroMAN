@@ -24,7 +24,7 @@ public class TipController {
 
     @GetMapping("tip/{id}")
     public Tip getCategoryName(@PathVariable Long id){
-        log.info("Catagory ID: "+Long.toString(id));
+        log.info("Tip ID: "+Long.toString(id));
         return new Tip(id, null, null, null);
     }
 
