@@ -5,15 +5,15 @@ import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.mhlongo.enviro.model.Tip;
+import com.mhlongo.enviro.model.TipModel;
 
 
 
 public class TipModelTest {
     private static final Logger log = LoggerFactory.getLogger(TipModelTest.class);
     
-    private Tip getTestTip(){
-        return new Tip(TestTip.ID, TestTip.TITLE, TestTip.CATEGORY, TestTip.CONTENT);
+    private TipModel getTestTip(){
+        return new TipModel(TestTip.ID, TestTip.TITLE, TestTip.CATEGORY, TestTip.CONTENT);
     }
 
      /**
@@ -21,7 +21,7 @@ public class TipModelTest {
      */
     @Test
     public void testItem(){
-        Tip tip = null;
+        TipModel tip = null;
 
         log.info("Testing Category class");
         tip = getTestTip();

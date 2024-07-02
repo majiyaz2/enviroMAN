@@ -5,15 +5,15 @@ import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.mhlongo.enviro.model.Item;
+import com.mhlongo.enviro.model.ItemModel;
 
 
 
 public class ItemModelTest {
     private static final Logger log = LoggerFactory.getLogger(ItemModelTest.class);
     
-    private Item getTestItem(){
-        return new Item(TestItem.ID, TestItem.NAME, TestItem.DESCRIPTION, TestItem.WEIGHT, TestItem.DISPOSAL);
+    private ItemModel getTestItem(){
+        return new ItemModel(TestItem.ID, TestItem.NAME, TestItem.DESCRIPTION, TestItem.WEIGHT, TestItem.DISPOSAL);
 
     }
 
@@ -22,7 +22,7 @@ public class ItemModelTest {
      */
     @Test
     public void testItem(){
-        Item item = null;
+        ItemModel item = null;
 
         log.info("Testing Category class");
         item = getTestItem();
