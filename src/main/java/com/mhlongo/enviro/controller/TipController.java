@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -28,10 +29,14 @@ public class TipController {
         log.info("Tip ID: "+Long.toString(id));
         return new Tip(id, null, null, null);
     }
-
+    
     @PostMapping("tip/addTip")
     public Tip addTip(Tip tip){
         return tip;
     }
-
+    
+    @DeleteMapping("tip/{id}")
+    public void deleteCategoryName(@PathVariable Long id){
+        log.info("Delete ID: "+Long.toString(id));
+    }
 }
