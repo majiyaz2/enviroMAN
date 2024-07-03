@@ -1,5 +1,5 @@
 
-# ♻️ Eviro365 Waste Management
+# ♻️ Eviro365 Waste Management [![Java CI](https://github.com/majiyaz2/enviroMAN/actions/workflows/main.yml/badge.svg)](https://github.com/majiyaz2/enviroMAN/actions/workflows/main.yml)
 The Enviro365 Waste Management Application is built using Spring Boot and provides RESTful APIs for managing waste categories, items within those categories, and tips related to waste management. The application supports CRUD operations (Create, Read, Update, Delete).
 
 
