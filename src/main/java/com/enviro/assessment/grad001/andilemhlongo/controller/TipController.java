@@ -1,4 +1,4 @@
-package com.mhlongo.enviro.controller;
+package com.enviro.assessment.grad001.andilemhlongo.controller;
 
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -19,11 +19,12 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.mhlongo.enviro.model.CategoryModel;
-import com.mhlongo.enviro.model.ItemModel;
-import com.mhlongo.enviro.model.TipModel;
-import com.mhlongo.enviro.repositories.CategoryRepository;
-import com.mhlongo.enviro.repositories.TipRepository;
+import com.enviro.assessment.grad001.andilemhlongo.model.CategoryModel;
+import com.enviro.assessment.grad001.andilemhlongo.model.TipModel;
+import com.enviro.assessment.grad001.andilemhlongo.repositories.CategoryRepository;
+import com.enviro.assessment.grad001.andilemhlongo.repositories.TipRepository;
+
+
 
 
 @RestController

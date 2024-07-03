@@ -1,12 +1,11 @@
-package com.mhlongo.enviro;
+package com.enviro.assessment.grad001.andilemhlongo;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.mhlongo.enviro.model.TipModel;
-
+import com.enviro.assessment.grad001.andilemhlongo.model.TipModel;
 
 
 public class TipModelTest {

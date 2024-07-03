@@ -1,11 +1,13 @@
-package com.mhlongo.enviro;
+package com.enviro.assessment.grad001.andilemhlongo;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.mhlongo.enviro.model.CategoryModel;
+import com.enviro.assessment.grad001.andilemhlongo.model.CategoryModel;
+
+
 
 public class CategoryModelTest {
     private static final Logger log = LoggerFactory.getLogger(CategoryModel.class);

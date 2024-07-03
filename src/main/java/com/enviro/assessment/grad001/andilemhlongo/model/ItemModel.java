@@ -1,4 +1,4 @@
-package com.mhlongo.enviro.model;
+package com.enviro.assessment.grad001.andilemhlongo.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 

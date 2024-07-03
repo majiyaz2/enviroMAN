@@ -1,4 +1,4 @@
-package com.mhlongo.enviro;
+package com.enviro.assessment.grad001.andilemhlongo;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

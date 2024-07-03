@@ -1,6 +1,6 @@
-package com.mhlongo.enviro;
+package com.enviro.assessment.grad001.andilemhlongo;
 
-import com.mhlongo.enviro.model.CategoryModel;
+import com.enviro.assessment.grad001.andilemhlongo.model.CategoryModel;
 
 public class TestTip {
     public static Long ID = Long.valueOf(1);
