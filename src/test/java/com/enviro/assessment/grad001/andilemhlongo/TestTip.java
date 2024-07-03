@@ -1,11 +1,11 @@
-package com.mhlongo.enviro;
+package com.enviro.assessment.grad001.andilemhlongo;
 
-import com.mhlongo.enviro.model.Category;
+import com.enviro.assessment.grad001.andilemhlongo.model.CategoryModel;
 
 public class TestTip {
     public static Long ID = Long.valueOf(1);
     public static String TITLE = "Rinse and Dry Plastic Containers Before Recycling";
-    public static Category CATEGORY = new Category(Long.valueOf(1), "PLASTIC", "Plastic is a synthetic material made from polymers, which are long chains of molecules", false);
+    public static CategoryModel CATEGORY = new CategoryModel(Long.valueOf(1), "PLASTIC", "Plastic is a synthetic material made from polymers, which are long chains of molecules", false);
     public static String CONTENT = " Before placing plastic containers in your recycling bin, make sure to rinse them thoroughly and let them dry. This simple step helps in several ways:\r\n" + //
                 "\r\n" + //
                 "    1. Prevents contamination: Food residues can contaminate entire batches of recyclables, potentially rendering them unrecyclable.\r\n" + //

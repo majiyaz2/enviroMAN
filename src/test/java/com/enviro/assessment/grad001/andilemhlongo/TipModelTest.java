@@ -1,19 +1,18 @@
-package com.mhlongo.enviro;
+package com.enviro.assessment.grad001.andilemhlongo;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.mhlongo.enviro.model.Tip;
-
+import com.enviro.assessment.grad001.andilemhlongo.model.TipModel;
 
 
 public class TipModelTest {
     private static final Logger log = LoggerFactory.getLogger(TipModelTest.class);
     
-    private Tip getTestTip(){
-        return new Tip(TestTip.ID, TestTip.TITLE, TestTip.CATEGORY, TestTip.CONTENT);
+    private TipModel getTestTip(){
+        return new TipModel(TestTip.ID, TestTip.TITLE, TestTip.CATEGORY, TestTip.CONTENT);
     }
 
      /**
@@ -21,14 +20,14 @@ public class TipModelTest {
      */
     @Test
     public void testItem(){
-        Tip tip = null;
+        TipModel tip = null;
 
-        log.info("Testing Category class");
+        log.info("Testing Tip class");
         tip = getTestTip();
         Assertions.assertThat(TestTip.ID).isEqualTo(tip.getID());
         Assertions.assertThat(TestTip.TITLE).isEqualTo(tip.getTitle());
         Assertions.assertThat(TestTip.CATEGORY).isEqualTo(tip.getCategory());
         Assertions.assertThat(TestTip.CONTENT).isEqualTo(tip.getContent());
-        log.info("Done Testing Category class");
+        log.info("Done Testing Tip class");
     }
 }

@@ -1,19 +1,21 @@
-package com.mhlongo.enviro;
+package com.enviro.assessment.grad001.andilemhlongo;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.mhlongo.enviro.model.Item;
+import com.enviro.assessment.grad001.andilemhlongo.model.ItemModel;
+
+
 
 
 
 public class ItemModelTest {
     private static final Logger log = LoggerFactory.getLogger(ItemModelTest.class);
     
-    private Item getTestItem(){
-        return new Item(TestItem.ID, TestItem.NAME, TestItem.DESCRIPTION, TestItem.WEIGHT, TestItem.DISPOSAL);
+    private ItemModel getTestItem(){
+        return new ItemModel(TestItem.ID, TestItem.NAME, TestItem.DESCRIPTION, TestItem.WEIGHT, TestItem.DISPOSAL);
 
     }
 
@@ -22,15 +24,15 @@ public class ItemModelTest {
      */
     @Test
     public void testItem(){
-        Item item = null;
+        ItemModel item = null;
 
-        log.info("Testing Category class");
+        log.info("Testing Item class");
         item = getTestItem();
         Assertions.assertThat(TestItem.ID).isEqualTo(item.getID());
         Assertions.assertThat(TestItem.NAME).isEqualTo(item.getName());
         Assertions.assertThat(TestItem.DESCRIPTION).isEqualTo(item.getDescription());
         Assertions.assertThat(TestItem.WEIGHT).isEqualTo(item.getWeight());
         Assertions.assertThat(TestItem.DISPOSAL).isEqualTo(item.getDisposal());
-        log.info("Done Testing Category class");
+        log.info("Done Testing Item class");
     }
 }

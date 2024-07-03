@@ -1,4 +1,4 @@
-package com.mhlongo.enviro;
+package com.enviro.assessment.grad001.andilemhlongo;
 
 public class TestCategory {
     public static Long ID = Long.valueOf((1));
