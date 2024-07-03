@@ -12,8 +12,10 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
 
 import com.mhlongo.enviro.model.TipModel;
 import com.mhlongo.enviro.repositories.TipRepository;
@@ -44,6 +46,20 @@ public class TipController {
     public ResponseEntity<TipModel> addTip(@RequestBody TipModel tip){
         return ResponseEntity.ok(tipRepository.saveAndFlush(tip));
     }
+
+    @PutMapping("tip/{id}")
+    public ResponseEntity<TipModel> addCategoy(@PathVariable Long id,@RequestBody TipModel tip){
+        TipModel tipModel = tipRepository.findById(id)
+        .orElseThrow(() -> new ResourceNotFoundException("Item not found with id: " + id));
+
+        tipModel.setID(tip.getID());
+        tipModel.setContent(tip.getContent());
+
+        TipModel updatedTipModel = tipRepository.save(tipModel);
+        log.info("Updated Category ID: "+Long.toString(updatedTipModel.getID()));
+        return ResponseEntity.ok(updatedTipModel);
+    }
+
     
     @DeleteMapping("tip/{id}")
     public void deleteTip(@PathVariable Long id){

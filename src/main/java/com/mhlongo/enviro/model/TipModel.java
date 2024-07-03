@@ -32,6 +32,8 @@ public class TipModel {
         this.content = content;
     }
 
+    public TipModel(){}
+
     public Long getID() {
         return ID;
     }

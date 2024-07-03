@@ -12,8 +12,10 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
 
 import com.mhlongo.enviro.model.ItemModel;
 import com.mhlongo.enviro.repositories.CategoryRepository;
@@ -29,7 +31,7 @@ public class ItemController {
     @Autowired 
     private ItemRepository itemRepository;
 
-    @Autowired CategoryRepository categoryRepository;
+    // @Autowired CategoryRepository categoryRepository;
     
     @GetMapping("item")
     public ResponseEntity<List<ItemModel>> allItems(Long id){
@@ -46,6 +48,18 @@ public class ItemController {
     @PostMapping("item/addItem")
     public ResponseEntity<ItemModel> addItem(@RequestBody ItemModel item){
         return ResponseEntity.ok(itemRepository.saveAndFlush(item));
+    }
+
+    @PutMapping("item/{id}")
+    public ResponseEntity<ItemModel> addCategoy(@PathVariable Long id,@RequestBody ItemModel item){
+        ItemModel itemModel = itemRepository.findById(id)
+        .orElseThrow(() -> new ResourceNotFoundException("Item not found with id: " + id));
+        itemModel.setDescription(item.getDescription());
+        itemModel.setName(item.getName());
+        itemModel.setDescription(item.getDescription());
+        ItemModel updatedItemModel = itemRepository.save(itemModel);
+        log.info("Updated Category ID: "+Long.toString(updatedItemModel.getID()));
+        return ResponseEntity.ok(updatedItemModel);
     }
 
     

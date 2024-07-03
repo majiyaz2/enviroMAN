@@ -59,7 +59,7 @@ public class CategoryController {
         categoryModel.setName(category.getName());
         categoryModel.setRecyclable(category.getIsRecyclable());
         CategoryModel updatedCategoryModel = categoryRepository.save(categoryModel);
-        log.info("Added Category ID: "+Long.toString(category.getID()));
+        log.info("Updated Category ID: "+Long.toString(updatedCategoryModel.getID()));
         return ResponseEntity.ok(updatedCategoryModel);
     }
     
