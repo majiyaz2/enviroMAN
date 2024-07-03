@@ -68,20 +68,17 @@ To install the application you have have to above mentioned technologies and the
 - **Body (JSON):**
   ```json
   {
-    "id": 1,
     "name": "Plastics",
     "description": "Plastic materials and products",
     "isRecyclable": true,
     "items": [
             {
-                "id": 1,
                 "name": "Plastic Bag",
                 "description": "Used plastic shopping bag",
                 "weight": 0.01,
                 "disposal": "Place in the recycling bin if clean and dry. Otherwise, dispose of in the general waste bin."
             },
             {
-                "id": 2,
                 "name": "Food Container",
                 "description": "Plastic food storage container",
                 "weight": 0.2,
@@ -92,12 +89,10 @@ To install the application you have have to above mentioned technologies and the
             {
                 "title": "Recycle Properly",
                 "content": "Ensure plastics are clean and dry before placing them in the recycling bin.",
-                "id": 3
             },
             {
                 "title": "Reuse",
                 "content": "Find creative ways to reuse plastic items instead of disposing of them.",
-                "id": 4
             }
         ]
     }
