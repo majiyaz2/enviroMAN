@@ -2,6 +2,8 @@ package com.mhlongo.enviro.model;
 
 import java.util.*;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -20,6 +22,7 @@ public class CategoryModel {
     @SequenceGenerator(name = "category_id_seq", sequenceName = "category_id_seq", allocationSize = 1)
     @Column(name = "CATEGORY_ID")
     private Long id;
+    @Column(unique = true)
     private String name;
     private String description;
     private boolean isRecyclable;
@@ -35,8 +38,10 @@ public class CategoryModel {
 
 
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, orphanRemoval = true)
+     @JsonManagedReference
     public List<ItemModel> items = new ArrayList<>();
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
     public List<TipModel> tips = new ArrayList<>();
 
     public String getName() {

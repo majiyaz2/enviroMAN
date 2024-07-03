@@ -7,6 +7,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -45,21 +47,28 @@ public class ItemController {
         return ResponseEntity.ok( itemRepository.findById(id));
     }
 
-    @PostMapping("item/addItem/{categoryId}")
-    public ResponseEntity<ItemModel> addItem(@PathVariable Long categoryId, @RequestBody ItemModel item){
-        CategoryModel categoryModel =  categoryRepository.findById(categoryId)
-        .orElseThrow(() -> new ResourceNotFoundException("Please specify a valid category: " + categoryId));
+    @PostMapping("item/addItem/{itemId}")
+    public ResponseEntity<?> addItem(@PathVariable Long itemId, @RequestBody ItemModel item){
+        CategoryModel categoryModel =  categoryRepository.findById(itemId)
+        .orElseThrow(() -> new ResourceNotFoundException("Please specify a valid category: " + itemId));
         item.setCategory(categoryModel);
-        return ResponseEntity.ok(itemRepository.save(item));
+        try {
+            return ResponseEntity.ok(itemRepository.save(item));
+        } catch (DataIntegrityViolationException e) {
+            return ResponseEntity
+                .status(HttpStatus.CONFLICT)
+                .body("An Item with this name already exists.");
+    }
     }
 
     @PutMapping("item/{id}")
-    public ResponseEntity<ItemModel> addCategoy(@PathVariable Long id,@RequestBody ItemModel item){
+    public ResponseEntity<ItemModel> updateItem(@PathVariable Long id,@RequestBody ItemModel item){
         ItemModel itemModel = itemRepository.findById(id)
         .orElseThrow(() -> new ResourceNotFoundException("Item not found with id: " + id));
         itemModel.setDescription(item.getDescription());
         itemModel.setName(item.getName());
         itemModel.setDescription(item.getDescription());
+        itemModel.setCategory(item.getCategory());
         ItemModel updatedItemModel = itemRepository.save(itemModel);
         log.info("Updated Category ID: "+Long.toString(updatedItemModel.getID()));
         return ResponseEntity.ok(updatedItemModel);
@@ -68,9 +77,16 @@ public class ItemController {
     
 
     @DeleteMapping("item/{id}")
-    public void deleteItem(@PathVariable Long id){
-        itemRepository.deleteById(id);
-        log.info("Delete ID: "+Long.toString(id));
+    public ResponseEntity<String> deleteItem(@PathVariable Long id){
+        try {
+            categoryRepository.deleteById(id);
+            log.info("Delete ID: "+Long.toString(id));
+            return ResponseEntity.ok("Delete ID: "+Long.toString(id));
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity
+                    .status(HttpStatus.CONFLICT)
+                    .body("An item with this id does not exist");
+        }
         
     }
 }

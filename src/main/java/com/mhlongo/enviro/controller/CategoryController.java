@@ -1,12 +1,14 @@
 package com.mhlongo.enviro.controller;
 
 import java.util.List;
-import java.util.Optional;
+import java.util.NoSuchElementException;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 import com.mhlongo.enviro.model.CategoryModel;
+import com.mhlongo.enviro.model.ItemModel;
 import com.mhlongo.enviro.repositories.CategoryRepository;
 
 @RestController
@@ -30,43 +33,81 @@ public class CategoryController {
     private CategoryRepository categoryRepository;
     
     @GetMapping("category")
-    public ResponseEntity<List<CategoryModel>> logCategory(Long id){
+    public ResponseEntity<List<CategoryModel>> getAllCategories(Long id){
         log.info("Category Endpoint"+ categoryRepository.findAll());
         return ResponseEntity.ok(categoryRepository.findAll());
         
     }
 
     @GetMapping("category/{id}")
-    public ResponseEntity<Optional<CategoryModel>> getCategoryName(@PathVariable Long id){
+    public ResponseEntity<?> getCategoryName(@PathVariable Long id){
         log.info("Category ID: "+Long.toString(id));
-        return  ResponseEntity.ok(categoryRepository.findById(id));
+        try {
+            return  ResponseEntity.ok(categoryRepository.findById(id));
+        } catch (NoSuchElementException e) {
+            return ResponseEntity
+                    .status(HttpStatus.CONFLICT)
+                    .body("A category with this id does not exist");
+        }
         
     }
     
     @PostMapping("category/addCategory")
-    public ResponseEntity<CategoryModel> addCategoy(@RequestBody CategoryModel category){
-        categoryRepository.save(category);
-        categoryRepository.flush();
-        log.info("Added Category ID: "+Long.toString(category.getId()));
-        return ResponseEntity.ok(category);
+    public ResponseEntity<?> addCategoy(@RequestBody CategoryModel category){
+        List<ItemModel> items = category.getItems();
+       
+
+        try {
+            if(items != null){
+                for(ItemModel itemModel : items){
+                    itemModel.setCategory(category);
+                }
+            }
+            CategoryModel savedCategory = categoryRepository.save(category);
+            log.info("Added Category ID: "+Long.toString(category.getId()));
+            return ResponseEntity.ok(savedCategory);
+            
+        } catch (DataIntegrityViolationException e) {
+                return ResponseEntity
+                    .status(HttpStatus.CONFLICT)
+                    .body("A category with this name already exists.");
+        }
+       
     }
 
     @PutMapping("category/{id}")
-    public ResponseEntity<CategoryModel> addCategoy(@PathVariable Long id,@RequestBody CategoryModel category){
-        CategoryModel categoryModel = categoryRepository.findById(id)
-        .orElseThrow(() -> new ResourceNotFoundException("Item not found with id: " + id));
-        categoryModel.setDescription(category.getDescription());
-        categoryModel.setName(category.getName());
-        categoryModel.setRecyclable(category.getIsRecyclable());
-        CategoryModel updatedCategoryModel = categoryRepository.save(categoryModel);
-        log.info("Updated Category ID: "+Long.toString(updatedCategoryModel.getId()));
-        return ResponseEntity.ok(updatedCategoryModel);
+    public ResponseEntity<?> addCategory(@PathVariable Long id,@RequestBody CategoryModel category){
+        try {
+            CategoryModel categoryModel;
+            categoryModel = categoryRepository.findById(id).get();
+            categoryModel.setDescription(category.getDescription());
+            categoryModel.setName(category.getName());
+            categoryModel.setRecyclable(category.getIsRecyclable());
+            categoryModel.setItems(category.getItems());
+            categoryModel.setTips(category.getTips());
+            CategoryModel updatedCategoryModel = categoryRepository.save(categoryModel);
+            log.info("Updated Category ID: "+Long.toString(updatedCategoryModel.getId()));
+            return ResponseEntity.ok(updatedCategoryModel);
+           
+        } catch (NoSuchElementException e) {
+            return ResponseEntity
+                    .status(HttpStatus.CONFLICT)
+                    .body("A category with this id does not exist");
+        }
+        
     }
     
     @DeleteMapping("category/{id}")
-    public void deleteCategoryName(@PathVariable Long id){
-        categoryRepository.deleteById(id);
-        log.info("Delete ID: "+Long.toString(id));
+    public ResponseEntity<String> deleteCategoryName(@PathVariable Long id){
+        try {
+            categoryRepository.deleteById(id);
+            log.info("Delete ID: "+Long.toString(id));
+            return ResponseEntity.ok("Delete ID: "+Long.toString(id));
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity
+                    .status(HttpStatus.CONFLICT)
+                    .body("A category with this id does not exist");
+        }
     }
     
     

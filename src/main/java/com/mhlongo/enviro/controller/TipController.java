@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -54,6 +55,8 @@ public class TipController {
 
         tipModel.setID(tip.getID());
         tipModel.setContent(tip.getContent());
+        tipModel.setCategory(tip.getCategory());
+        tipModel.setTitle(tipModel.getTitle());
 
         TipModel updatedTipModel = tipRepository.save(tipModel);
         log.info("Updated Category ID: "+Long.toString(updatedTipModel.getID()));
@@ -62,8 +65,15 @@ public class TipController {
 
     
     @DeleteMapping("tip/{id}")
-    public void deleteTip(@PathVariable Long id){
-        tipRepository.deleteById(id);
-        log.info("Delete ID: "+Long.toString(id));
+    public ResponseEntity<?> deleteTip(@PathVariable Long id){
+        try {
+            tipRepository.deleteById(id);
+            log.info("Delete ID: "+Long.toString(id));
+            return ResponseEntity.ok("Delete ID: "+Long.toString(id));
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity
+                    .status(HttpStatus.CONFLICT)
+                    .body("A tip with this id does not exist");
+        }
     }
 }

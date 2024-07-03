@@ -1,5 +1,7 @@
 package com.mhlongo.enviro.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -14,14 +16,17 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "TIP")
 public class TipModel {
+    
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "item_id_seq")
     @SequenceGenerator(name = "item_id_seq", sequenceName = "item_id_seq", allocationSize = 1)
     @Column(name = "ITEM_ID")
     private Long ID;
     private String title;
+    
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "CATEGORY_ID")
+    @JsonBackReference
     private CategoryModel category;
     private String content; 
 
