@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.mhlongo.enviro.model.ItemModel;
+import com.mhlongo.enviro.repositories.CategoryRepository;
 import com.mhlongo.enviro.repositories.ItemRepository;
 
 
@@ -26,28 +28,32 @@ public class ItemController {
 
     @Autowired 
     private ItemRepository itemRepository;
+
+    @Autowired CategoryRepository categoryRepository;
     
     @GetMapping("item")
-    public List<ItemModel> allItems(Long id){
+    public ResponseEntity<List<ItemModel>> allItems(Long id){
          log.info("Item Endpoint");
-         return itemRepository.findAll();
+         return ResponseEntity.ok(itemRepository.findAll());
     }
 
     @GetMapping("item/{id}")
-    public Optional<ItemModel> getItem(@PathVariable Long id){
+    public ResponseEntity<Optional<ItemModel>> getItem(@PathVariable Long id){
         log.info("Item ID: "+Long.toString(id));
-        return itemRepository.findById(id);
+        return ResponseEntity.ok( itemRepository.findById(id));
     }
 
     @PostMapping("item/addItem")
-    public ItemModel addItem(@RequestBody ItemModel item){
-        return itemRepository.saveAndFlush(item);
+    public ResponseEntity<ItemModel> addItem(@RequestBody ItemModel item){
+        return ResponseEntity.ok(itemRepository.saveAndFlush(item));
     }
+
+    
 
     @DeleteMapping("item/{id}")
     public void deleteItem(@PathVariable Long id){
-        log.info("Delete ID: "+Long.toString(id));
         itemRepository.deleteById(id);
+        log.info("Delete ID: "+Long.toString(id));
         
     }
 }

@@ -1,11 +1,13 @@
 package com.mhlongo.enviro.controller;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,25 +29,25 @@ public class TipController {
     TipRepository tipRepository;
     
     @GetMapping("tip")
-    public void getAllTips(){
+    public ResponseEntity<List<TipModel>> getAllTips(){
         log.info("Tip Endpoint");
-        tipRepository.findAll();
+        return ResponseEntity.ok(tipRepository.findAll());
     }
 
     @GetMapping("tip/{id}")
-    public Optional<TipModel> getTip(@PathVariable Long id){
+    public ResponseEntity<Optional<TipModel>> getTip(@PathVariable Long id){
         log.info("Tip ID: "+Long.toString(id));
-        return tipRepository.findById(id);
+        return ResponseEntity.ok(tipRepository.findById(id));
     }
     
     @PostMapping("tip/addTip")
-    public TipModel addTip(@RequestBody TipModel tip){
-        tipRepository.saveAndFlush(tip);
-        return tip;
+    public ResponseEntity<TipModel> addTip(@RequestBody TipModel tip){
+        return ResponseEntity.ok(tipRepository.saveAndFlush(tip));
     }
     
     @DeleteMapping("tip/{id}")
     public void deleteTip(@PathVariable Long id){
+        tipRepository.deleteById(id);
         log.info("Delete ID: "+Long.toString(id));
     }
 }
