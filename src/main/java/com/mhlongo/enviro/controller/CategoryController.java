@@ -83,11 +83,9 @@ public class CategoryController {
             categoryModel.setDescription(category.getDescription());
             categoryModel.setName(category.getName());
             categoryModel.setRecyclable(category.getIsRecyclable());
-            categoryModel.setItems(category.getItems());
-            categoryModel.setTips(category.getTips());
-            CategoryModel updatedCategoryModel = categoryRepository.save(categoryModel);
-            log.info("Updated Category ID: "+Long.toString(updatedCategoryModel.getId()));
-            return ResponseEntity.ok(updatedCategoryModel);
+             
+            log.info("Updated Category ID: "+Long.toString(categoryModel.getId()));
+            return ResponseEntity.ok(categoryRepository.save(categoryModel));
            
         } catch (NoSuchElementException e) {
             return ResponseEntity

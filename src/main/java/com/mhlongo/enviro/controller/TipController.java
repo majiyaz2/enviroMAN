@@ -1,12 +1,14 @@
 package com.mhlongo.enviro.controller;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -17,8 +19,10 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-
+import com.mhlongo.enviro.model.CategoryModel;
+import com.mhlongo.enviro.model.ItemModel;
 import com.mhlongo.enviro.model.TipModel;
+import com.mhlongo.enviro.repositories.CategoryRepository;
 import com.mhlongo.enviro.repositories.TipRepository;
 
 
@@ -29,7 +33,9 @@ public class TipController {
     private static final Logger log = LoggerFactory.getLogger(TipController.class);
 
     @Autowired
-    TipRepository tipRepository;
+    private TipRepository tipRepository;
+    @Autowired 
+    private CategoryRepository categoryRepository;
     
     @GetMapping("tip")
     public ResponseEntity<List<TipModel>> getAllTips(){
@@ -43,9 +49,20 @@ public class TipController {
         return ResponseEntity.ok(tipRepository.findById(id));
     }
     
-    @PostMapping("tip/addTip")
-    public ResponseEntity<TipModel> addTip(@RequestBody TipModel tip){
-        return ResponseEntity.ok(tipRepository.saveAndFlush(tip));
+    @PostMapping("tip/addTip/{tipId}")
+    public ResponseEntity<?> addTip(@PathVariable Long tipId, @RequestBody TipModel tip){
+        try {
+            CategoryModel categoryModel =  categoryRepository.findById(tipId).get();
+            tip.setCategory(categoryModel);
+            return ResponseEntity.ok(tipRepository.save(tip));
+        } catch (DataIntegrityViolationException|ResourceNotFoundException|NoSuchElementException  e) {
+            
+            return ResponseEntity
+                .status(HttpStatus.CONFLICT)
+                .body("An Item with this name already exists. Or the category does not exist");
+            
+        }
+        
     }
 
     @PutMapping("tip/{id}")

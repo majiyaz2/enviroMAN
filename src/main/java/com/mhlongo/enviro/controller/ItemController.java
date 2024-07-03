@@ -1,6 +1,7 @@
 package com.mhlongo.enviro.controller;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import org.slf4j.Logger;
@@ -47,17 +48,19 @@ public class ItemController {
         return ResponseEntity.ok( itemRepository.findById(id));
     }
 
+
     @PostMapping("item/addItem/{itemId}")
     public ResponseEntity<?> addItem(@PathVariable Long itemId, @RequestBody ItemModel item){
-        CategoryModel categoryModel =  categoryRepository.findById(itemId)
-        .orElseThrow(() -> new ResourceNotFoundException("Please specify a valid category: " + itemId));
-        item.setCategory(categoryModel);
         try {
+            CategoryModel categoryModel =  categoryRepository.findById(itemId).get();
+            item.setCategory(categoryModel);
             return ResponseEntity.ok(itemRepository.save(item));
-        } catch (DataIntegrityViolationException e) {
+        } catch (DataIntegrityViolationException|ResourceNotFoundException|NoSuchElementException  e) {
+            
             return ResponseEntity
                 .status(HttpStatus.CONFLICT)
-                .body("An Item with this name already exists.");
+                .body("An Item with this name already exists. Or the category does not exist");
+            
     }
     }
 
