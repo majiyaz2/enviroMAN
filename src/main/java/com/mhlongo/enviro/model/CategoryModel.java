@@ -33,12 +33,11 @@ public class CategoryModel {
         this.isRecyclable = isRecyclable;
     }
 
-    public Long getID() {
-        return id;
-    }
 
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, orphanRemoval = true)
     public List<ItemModel> items = new ArrayList<>();
+    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, orphanRemoval = true)
+    public List<TipModel> tips = new ArrayList<>();
 
     public String getName() {
         return name;
@@ -70,6 +69,22 @@ public class CategoryModel {
 
     public void setItems(List<ItemModel> items) {
         this.items = items;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public List<ItemModel> getItems() {
+        return items;
+    }
+
+    public List<TipModel> getTips() {
+        return tips;
+    }
+
+    public void setTips(List<TipModel> tips) {
+        this.tips = tips;
     }
     
 }

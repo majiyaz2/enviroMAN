@@ -23,7 +23,7 @@ public class CategoryModelTest {
 
         log.info("Testing Category class");
         category = getTestCategory();
-        Assertions.assertThat(TestCategory.ID).isEqualTo(category.getID());
+        Assertions.assertThat(TestCategory.ID).isEqualTo(category.getId());
         Assertions.assertThat(TestCategory.Name).isEqualTo(category.getName());
         Assertions.assertThat(TestCategory.ISRECYCLABLE).isEqualTo(category.getIsRecyclable());
         Assertions.assertThat(TestCategory.DESCRIPTION).isEqualTo(category.getDescription());

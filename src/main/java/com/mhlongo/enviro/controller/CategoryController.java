@@ -47,7 +47,7 @@ public class CategoryController {
     public ResponseEntity<CategoryModel> addCategoy(@RequestBody CategoryModel category){
         categoryRepository.save(category);
         categoryRepository.flush();
-        log.info("Added Category ID: "+Long.toString(category.getID()));
+        log.info("Added Category ID: "+Long.toString(category.getId()));
         return ResponseEntity.ok(category);
     }
 
@@ -59,7 +59,7 @@ public class CategoryController {
         categoryModel.setName(category.getName());
         categoryModel.setRecyclable(category.getIsRecyclable());
         CategoryModel updatedCategoryModel = categoryRepository.save(categoryModel);
-        log.info("Updated Category ID: "+Long.toString(updatedCategoryModel.getID()));
+        log.info("Updated Category ID: "+Long.toString(updatedCategoryModel.getId()));
         return ResponseEntity.ok(updatedCategoryModel);
     }
     

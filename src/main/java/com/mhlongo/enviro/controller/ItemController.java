@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-
+import com.mhlongo.enviro.model.CategoryModel;
 import com.mhlongo.enviro.model.ItemModel;
 import com.mhlongo.enviro.repositories.CategoryRepository;
 import com.mhlongo.enviro.repositories.ItemRepository;
@@ -31,7 +31,7 @@ public class ItemController {
     @Autowired 
     private ItemRepository itemRepository;
 
-    // @Autowired CategoryRepository categoryRepository;
+    @Autowired CategoryRepository categoryRepository;
     
     @GetMapping("item")
     public ResponseEntity<List<ItemModel>> allItems(Long id){
@@ -45,9 +45,12 @@ public class ItemController {
         return ResponseEntity.ok( itemRepository.findById(id));
     }
 
-    @PostMapping("item/addItem")
-    public ResponseEntity<ItemModel> addItem(@RequestBody ItemModel item){
-        return ResponseEntity.ok(itemRepository.saveAndFlush(item));
+    @PostMapping("item/addItem/{categoryId}")
+    public ResponseEntity<ItemModel> addItem(@PathVariable Long categoryId, @RequestBody ItemModel item){
+        CategoryModel categoryModel =  categoryRepository.findById(categoryId)
+        .orElseThrow(() -> new ResourceNotFoundException("Please specify a valid category: " + categoryId));
+        item.setCategory(categoryModel);
+        return ResponseEntity.ok(itemRepository.save(item));
     }
 
     @PutMapping("item/{id}")
